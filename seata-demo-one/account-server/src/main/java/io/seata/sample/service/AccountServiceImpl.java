@@ -20,6 +20,25 @@ public class AccountServiceImpl implements AccountService{
     @Autowired
     private OrderApi orderApi;
 
+    @Override
+    public void decreaseException(Long userId, BigDecimal money) {
+        LOGGER.info("------->扣减账户开始account中");
+        //模拟超时异常，全局事务回滚
+//        try {
+//            Thread.sleep(30*1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        accountDao.decrease(userId,money);
+        LOGGER.info("------->扣减账户结束account中");
+
+        //修改订单状态，此调用会导致调用成环
+        LOGGER.info("修改订单状态开始");
+        String mes = orderApi.update(userId, money.multiply(new BigDecimal("0.09")),0);
+        LOGGER.info("修改订单状态结束：{}",mes);
+        throw new RuntimeException("账户操作异常！");
+    }
+
     /**
      * 扣减账户余额
      * @param userId 用户id
@@ -41,6 +60,5 @@ public class AccountServiceImpl implements AccountService{
         LOGGER.info("修改订单状态开始");
         String mes = orderApi.update(userId, money.multiply(new BigDecimal("0.09")),0);
         LOGGER.info("修改订单状态结束：{}",mes);
-        throw new RuntimeException("账户操作异常！");
     }
 }

@@ -17,6 +17,19 @@ public class AccountController {
     @Autowired
     private AccountService accountServiceImpl;
 
+
+    /**
+     * 扣减账户余额抛出异常
+     * @param userId 用户id
+     * @param money 金额
+     * @return
+     */
+    @RequestMapping("decreaseException")
+    public String decreaseException(@RequestParam("userId") Long userId,@RequestParam("money") BigDecimal money){
+        accountServiceImpl.decreaseException(userId,money);
+        return "Account decrease success";
+    }
+
     /**
      * 扣减账户余额
      * @param userId 用户id

@@ -8,6 +8,14 @@ import java.math.BigDecimal;
  */
 public interface OrderService {
 
+
+    /**
+     * 创建订单抛出异常
+     * @param order
+     * @return
+     */
+    void createException(Order order);
+
     /**
      * 创建订单
      * @param order

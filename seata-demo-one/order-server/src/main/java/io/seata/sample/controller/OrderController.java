@@ -19,9 +19,23 @@ public class OrderController {
     @Autowired
     private OrderService orderServiceImpl;
 
+
+    /**
+     * 创建订单
+     * http://localhost:8180/order/createException?userId=1&productId=1&count=10&money=100
+     * @param order
+     * @return
+     */
+    @GetMapping("createException")
+    public String createException(Order order){
+        orderServiceImpl.createException(order);
+        return "Create order success";
+    }
+
     /**
      * 创建订单
      * @param order
+     * http://localhost:8180/order/create?userId=1&productId=1&count=10&money=100
      * @return
      */
     @GetMapping("create")

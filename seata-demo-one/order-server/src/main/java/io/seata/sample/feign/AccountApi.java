@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AccountApi {
 
     /**
+     * 扣减账户余额抛出异常
+     * @param userId 用户id
+     * @param money 金额
+     * @return
+     */
+    @RequestMapping("/account/decreaseException")
+    String decreaseException(@RequestParam("userId") Long userId, @RequestParam("money") BigDecimal money);
+
+    /**
      * 扣减账户余额
      * @param userId 用户id
      * @param money 金额
